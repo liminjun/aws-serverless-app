@@ -53,7 +53,7 @@ export class CompareService {
       if (!all) {
         urlParam = 'single';
       }
-      this.http.get('https://API_ID.execute-api.REGION.amazonaws.com/dev/compare-yourself/' + urlParam + queryParam, {
+      this.http.get('https://xar9oly67l.execute-api.ap-northeast-1.amazonaws.com/dev/compare-yourself/' + urlParam + queryParam, {
         headers: new Headers({'Authorization': session.getIdToken().getJwtToken()})
       })
         .map(
@@ -84,7 +84,8 @@ export class CompareService {
   onDeleteData() {
     this.dataLoadFailed.next(false);
     this.authService.getAuthenticatedUser().getSession((err, session) => {
-      this.http.delete('https://API_ID.execute-api.REGION.amazonaws.com/dev/compare-yourself/?accessToken=XXX', {
+      const accessToken=session.getAccessToken().getJwtToken();
+      this.http.delete('https://xar9oly67l.execute-api.ap-northeast-1.amazonaws.com/dev/compare-yourself?accessToken='+accessToken, {
         headers: new Headers({'Authorization': session.getIdToken().getJwtToken()})
       })
         .subscribe(
